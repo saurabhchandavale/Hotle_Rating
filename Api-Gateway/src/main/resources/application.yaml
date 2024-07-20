@@ -1,0 +1,31 @@
+server:
+  port: 8004
+
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: USER-SERVICE
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/user/**  # Predicate for path matching
+            
+        - id: HOTEL-SERVICE
+          uri: lb://HOTEL-SERVICE
+          predicates:
+            - Path=/api/hotel/**  # Predicate for path matching
+            
+        - id: HOTEL-RATING
+          uri: lb://HOTEL-RATING
+          predicates:
+            - Path=/api/rating/**  # Predicate for path matching
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
