@@ -15,7 +15,7 @@ spring:
         - id: HOTEL-SERVICE
           uri: lb://HOTEL-SERVICE
           predicates:
-            - Path=/api/hotel/**  # Predicate for path matching
+            - Path=/api/hotel/**, /hotel/**  # Predicate for path matching
             
         - id: HOTEL-RATING
           uri: lb://HOTEL-RATING
