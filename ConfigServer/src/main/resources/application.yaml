@@ -1,0 +1,21 @@
+server:
+  port: 8005
+
+spring:
+  application:
+    name: Config-Server
+  
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/saurabhchandavale/microservices-configuration
+          clone-on-start: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8080/eureka/
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
