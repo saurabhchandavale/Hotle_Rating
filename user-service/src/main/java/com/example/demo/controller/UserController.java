@@ -19,6 +19,7 @@ import com.example.demo.service.impl.UserServiceImpl;
 
 import ch.qos.logback.classic.Logger;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.github.resilience4j.retry.annotation.Retry;
 
 @RestController
@@ -37,7 +38,8 @@ public class UserController {
 	//localhost:8001/api/user/6347d42f-ba5f-4c63-a937-9d9d4d6bc344
 	@GetMapping("/{userId}")
 	//@CircuitBreaker(name="userCircuitBreaker", fallbackMethod = "ratingHotelFallbackMethod")
-	@Retry(name="ratingHotelService", fallbackMethod = "ratingHotelFallbackMethod")
+	//@Retry(name="ratingHotelService", fallbackMethod = "ratingHotelFallbackMethod")
+	@RateLimiter(name="userRateLimeter", fallbackMethod = "ratingHotelFallbackMethod")
 	public ResponseEntity<User> getUserById(@PathVariable String userId) {
 		 logger.info("Retry Count {}  ", retryCount);
 		 retryCount++;

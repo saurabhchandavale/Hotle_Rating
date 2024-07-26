@@ -56,3 +56,9 @@ resilience4j:
         maxAttempts: 3
         waitDuration: 5000  # milliseconds
 
+  ratelimiter:
+    instances:
+      userRateLimiter:
+        limitRefreshPeriod: 4000  # milliseconds
+        limitForPeriod: 2
+        timeoutDuration: 0
